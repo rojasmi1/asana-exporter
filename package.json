@@ -1,0 +1,14 @@
+{
+  "name": "asana-exporter",
+  "version": "1.0.0",
+  "description": "This is meant to help improve the process of generating tasks reports for the SolarWinds project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "asana": "^0.15.0"
+  }
+}
