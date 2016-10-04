@@ -1,0 +1,105 @@
+id,name,notes,completed,completed_at,due_on,due_at
+190096749929078,Create Email in Marketo,,true,2016-10-04T15:20:36.750Z,2016-10-04,
+190157504450131,2016 Microsoft Ignite - Lead Load Request - - 70150000000yRjw,,true,2016-10-03T16:47:11.460Z,2016-10-05,
+188189145653002,NPM 12 Lead Load,"Please upload the following leads for the NPM 12 Guaranteed lead program
+
+The campaign Id is: 701500000013sHY
+
+There should be 595 new leads added to the campaign
+Their is no DAy Zero with this campaigns
+And they need to be added to the nurture for NMP 12 in Marketo: 
+04 English Activity Based NPM 12 RR - Whitepaper Email Stream ( think this happens automatically with the campaign ID)
+
+Can you please let me know and confirm list upload qty is 595 leads.
+
+Thanks
+Marie
+",true,2016-10-03T20:22:15.812Z,2016-10-03,
+189328583942017,Upload leads,"Please upload the following leads for the NPM 12 Guaranteed lead program
+
+The campaign Id is: 701500000013sHY
+
+There should be 595 new leads added to the campaign
+Their is no DAy Zero with this campaigns
+And they need to be added to the nurture for NMP 12 in Marketo: 
+04 English Activity Based NPM 12 RR - Whitepaper Email Stream ( think this happens automatically with the campaign ID)
+
+Can you please let me know and confirm list upload qty is 595 leads.
+
+Thanks
+Marie
+
+
+",true,2016-10-03T16:10:17.759Z,2016-10-03,
+188795064161412,Create Email in Marketo,,true,2016-10-04T17:35:47.102Z,2016-09-30,
+188080330463416,SQL Sat. Lead load request ,,true,2016-09-29T21:43:30.471Z,2016-09-30,
+189328583942013,SQL Sat. Lead load request ,,true,2016-09-29T21:43:30.471Z,,
+187715106707010,Update SC Codes in Emails,"New SC Codes:
+MFT:
+EMC-DCE-SWI-SW_WW_X_NP_X_LD_EN_POSTDL_MKO-SMFT-D1_X_OF1_SMFT-X
+
+FTP: 
+EMC-DCE-SWI-SW_WW_X_NP_X_LD_EN_POSTDL_MKO-SMFT-D1_X_OF1_SFTP-X
+
+
+",true,2016-09-30T13:01:11.878Z,2016-09-28,
+184761302275168,Silverpop Link Clean Up ,"There are several emails in Silverpop that contain ""&email=%%EMAIL%%"" in the URL. This part of the URL needs to be removed as it's pulling email address into the URL query string, which is considered PII (personally identifiable information). I've attached an excel file that contains a list of known email names in Silverpop (column C) and the links in question.
+",true,2016-09-29T21:02:26.270Z,2016-09-30,
+187301789309449,Prosperon Manchester End User Event Sept 2016,Can you please load the attached excel sheet for Campaign ID 70150000001AdUB. Attached the list of leads and the lead load request form,true,2016-09-27T14:01:10.058Z,2016-09-27,
+189328594989518,Prosperon Manchester End User Event Sept 2016,Can you please load the attached excel sheet for Campaign ID 70150000001AdUB. Attached the list of leads and the lead load request form,true,2016-09-27T14:01:10.058Z,,
+187293420228728,Range B2B Whitepaper Camapign 270916 lead load,Can you please load the attached excel sheet for CampaignID 70150000001Acre. Attached is the list of leads and the lead load request form,true,2016-09-27T13:57:11.744Z,2016-09-27,
+189328593994546,Range B2B Whitepaper Camapign 270916 lead load,Can you please load the attached excel sheet for CampaignID 70150000001Acre. Attached is the list of leads and the lead load request form,true,2016-09-27T13:57:11.744Z,,
+187283028946380,Prosperon Inbox Insight Whitepaper Campaign 270916,"Can you please load the attached excelsheet for Campaign ID 70150000001AdUL
+Attached is the lead load request form and the list of leads.",true,2016-09-27T14:08:54.479Z,2016-09-27,
+189328593208790,Prosperon Inbox Insight Whitepaper Campaign 270916,"Can you please load the attached excelsheet for Campaign ID 70150000001AdUL
+Attached is the lead load request form and the list of leads.",true,2016-09-27T14:08:54.479Z,,
+187283028946370,Avnet Heise & B2B Whitepaper Camapign 270916 lead load,"Can you please load the attached excel sheet for Campaign ID 70150000001Acrj. Attached is the list and the lead load request form
+
+",true,2016-09-27T13:52:11.975Z,2016-09-27,
+189328592006585,Avnet Heise & B2B Whitepaper Camapign 270916 lead load,"Can you please load the attached excel sheet for Campaign ID 70150000001Acrj. Attached is the list and the lead load request form
+
+",true,2016-09-27T13:52:11.975Z,,
+187013721989557,Atlanta SWUG,,true,2016-09-27T13:52:22.320Z,2016-09-28,
+189328583942019,Atlanta SWUG,,true,2016-09-27T13:52:22.320Z,,
+186948480661365,Build Invite #1 (Oct 6th),,true,2016-09-26T20:00:34.424Z,2016-09-28,
+185717926264400,OOW Lead Load- Hot and regular leads ,,true,2016-09-23T14:38:48.156Z,2016-09-23,
+189328583942038,OOW Lead Load- Hot and regular leads ,,true,2016-09-23T14:38:48.156Z,,
+185523057802664,Update Event Confirmation Email,,true,2016-09-26T16:53:10.156Z,2016-09-28,
+185523057802658,Update Event Registration Form,,true,2016-09-23T19:22:03.986Z,2016-09-28,
+185523057802666,Update Event Reminder Program,,true,2016-09-26T16:14:10.484Z,2016-09-30,
+185523057802665,Update Event Reminder Email,,true,2016-09-26T16:53:19.899Z,2016-09-29,
+185523057802659,Update Event Confirmation Program,,true,2016-09-26T16:11:43.442Z,2016-09-29,
+185523057802657,Clone Marketo Event Program,,true,2016-09-23T17:00:35.162Z,2016-09-27,
+185523057802652,Create Invite Program #3,,true,2016-09-26T15:59:03.356Z,2016-10-11,
+185523057802654,Create Invite Program #2,,true,2016-09-26T15:58:54.349Z,2016-10-04,
+185523057802653,Create Invite Program #1,,true,2016-09-26T15:57:01.554Z,2016-09-27,
+184678996252578,Create Email in Marketo,,true,2016-09-22T17:35:59.501Z,2016-09-22,
+184512540061715,Create Email in Marketo,,true,2016-09-27T16:28:06.250Z,2016-09-26,
+184476236589379,Create Email in Marketo,,true,2016-09-26T13:07:26.450Z,2016-09-26,
+184468650512374,Create Email in Marketo,,true,2016-09-26T14:19:15.648Z,2016-09-23,
+183209229265081,Avnet Heise and B2B Whitepaper Campaign,"I am looking to get a lead load done please.
+
+Attached is the lead load request form and the excel sheet with the list of leads.
+
+
+",true,2016-09-22T17:34:53.728Z,2016-09-22,
+185831848553800,Avnet Heise and B2B Whitepaper Campaign,"I am looking to get a lead load done please.
+
+Attached is the lead load request form and the excel sheet with the list of leads.
+
+
+",true,2016-09-22T17:34:53.728Z,,
+189328594474144,Avnet Heise and B2B Whitepaper Campaign,"I am looking to get a lead load done please.
+
+Attached is the lead load request form and the excel sheet with the list of leads.
+
+
+",true,2016-09-22T17:34:53.728Z,,
+185693278976307,Avnet Heise and B2B Whitepaper Campaign,"I am looking to get a lead load done please.
+
+Attached is the lead load request form and the excel sheet with the list of leads.
+
+
+",true,2016-09-22T17:34:53.728Z,,
+183308329413638,Update Event Reminder Email,,true,2016-09-23T15:51:55.391Z,2016-09-28,
+183308329413637,Update Event Confirmation Program,,true,2016-09-23T15:51:24.290Z,2016-09-27,

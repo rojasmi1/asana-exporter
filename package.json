@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "asana": "^0.15.0"
+    "asana": "^0.15.0",
+    "csv-write-stream": "^2.0.0"
   }
 }
