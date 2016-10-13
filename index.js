@@ -6,7 +6,7 @@ const fs = require('fs')
 
 // Using the API key for basic authentication. This is reasonable to get
 // started with, but Oauth is more secure and provides more features.
-let client = asana.Client.create().useBasicAuth("0/5e103cf78174ce38352e87a2b1c01c7e")
+let client = asana.Client.create().useBasicAuth(process.env.ASANA_API_KEY)
 
 
 client.users.me()
