@@ -11,5 +11,8 @@
   "dependencies": {
     "asana": "^0.15.0",
     "csv-write-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "tern-node-extension": "^0.5.0"
   }
 }
