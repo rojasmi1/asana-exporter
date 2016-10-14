@@ -1,42 +1,136 @@
 'use strict'
-const asana = require('asana')
-const util = require('util')
-const csvWriter = require('csv-write-stream')
-const fs = require('fs')
 
-// Using the API key for basic authentication. This is reasonable to get
-// started with, but Oauth is more secure and provides more features.
-let client = asana.Client.create().useBasicAuth(process.env.ASANA_API_KEY)
+var inquirer
+var keyManager
 
-
-client.users.me()
-  .then(function(user) {
-    let userId = user.id
-    console.log(`User ID: ${userId}`)
-    // The user's "default" workspace is the first one in the list, though
-    // any user can have multiple workspaces so you can't always assume this
-    // is the one you want to work with.
-    let workspaceId = user.workspaces[0].id
-    console.log(`Workspace ID: ${workspaceId}`)
-    return client.tasks.findAll({
-      assignee: userId,
-      workspace: workspaceId,
-      completed_since: '2016-09-01T01:01:01.001Z',
-      opt_fields: 'id,name,completed,completed_at,due_at,due_on,notes'
-    })
-  })
-  .then(function(response) {
-    return response.data;
-  })
-  .filter(function(task) {
-    return task.completed_at !== '' && task.completed_at !== null
-  })
-  .then(function(list) {
-    //Write entries to CSV File
-    let writer = csvWriter()
-    writer.pipe(fs.createWriteStream('Monthly Report.csv'))
-    for (let task of list) {
-      writer.write(task)
+(function init() {  // ask for password until user gets is right or terminates
+  inquirer = require('inquirer')
+  keyManager = require('./key_manager')
+  inquirer.prompt([
+    {
+      type: 'password',
+      message: 'Enter key file password',
+      name: 'password'
     }
-    writer.end()
-  })
+  ]).then(function (answers) {
+    keyManager = keyManager(answers.password)  //it would be nice if we could cache password for future runs
+
+    //check that pass makes sense
+    try {
+      keyManager.getKeys() // will throw error is password is incorrect
+      mainLoop()
+    } catch(err) {
+      console.log(err + "\n");
+      init()
+    }
+
+  });
+}());
+
+function mainLoop() {
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'what',
+      message: 'What would you like to do? (ctrl+c to exit)',
+      choices: [
+        {name: '1. See info stored in keyFIle', value: 1},
+        {name: '2. Add person to key file', value: 2},
+        {name: '3. Remove someone from key file', value: 3},
+        {name: '4. Change password of keyFile', value: 4},
+        {name: '5. Make report of someone', value: 5},
+      ]
+    }
+  ]).then(function (answers) {
+    switch(answers.what){
+    case 1:
+      console.log('\nKeys File Info:\n-------------------------------------------');
+      for (let prsn of keyManager.getKeys()){
+        console.log(`${prsn.name}\t${prsn.api_key}`)
+        console.log('-------------------------------------------');
+      }
+      console.log('\n');
+      mainLoop()
+      break;
+
+    case 2:
+      addPersonWrapper()
+      break;
+
+    case 3:
+      removeSomeoneWrapper()
+      break;
+
+    case 4:
+      changePassWrapper()
+      break;
+
+    case 5:
+      makeReport()
+      break;
+
+    //default option is not needed since user cannot give us invalid input
+    }
+
+  });
+}
+
+function addPersonWrapper() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'Name of the person you want to add:',
+    },
+    {
+      type: 'input',
+      name: 'api_key',
+      message: 'Api key of this person:',
+    }
+
+  ]).then(function (answers) {
+    keyManager.addKeys(answers.name, answers.api_key)
+    mainLoop()
+  });
+}
+
+function changePassWrapper() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'newPass',
+      message: 'What is the new password you would like to use?',
+    }
+  ]).then(function (answers) {
+    keyManager.changePassowrd(answers.newPass)
+    mainLoop()
+  });
+}
+
+function makeReport() {
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'whoReport',
+      message: 'For who do you want to get the reports?',
+      choices: keyManager.getKeys().map(el => {return {name: el.name, value: el.api_key}})
+    }
+  ]).then(function (answers) {
+    //here run asanaFlow for 'whoReport' and make something with user's attention after that
+    mainLoop()
+  });
+}
+
+function removeSomeoneWrapper(){
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'name',
+      message: 'For who do you want to get the reports?',
+      choices: keyManager.getKeys().map(el => {return {name: el.name, value: el.name}})
+    }
+  ]).then(function (answers) {
+    keyManager.removeSomeone(answers.name)
+    mainLoop()
+  });
+}
