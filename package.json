@@ -10,7 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "asana": "^0.15.0",
-    "csv-write-stream": "^2.0.0"
+    "breeze": "^1.2.2",
+    "csv-write-stream": "^2.0.0",
+    "inquirer": "^1.2.2",
+    "xs-blowfish": "^2.0.0"
   },
   "devDependencies": {
     "tern-node-extension": "^0.5.0"
