@@ -9,7 +9,7 @@ var Blowfish = require('xs-blowfish')
 *          where name is the user's name and api_key is it's API key.
 * Supposes that keyFile is encrypted with 'key'
 */
-module.exports = function (key, keysFile = 'keys.bfs') {
+module.exports = function (key, keysFile = 'key_manager/keys.bfs') {
   if (!key) throw new Error("A key must be provided to construct the key manager!")
 
   var bf = new Blowfish(key)
