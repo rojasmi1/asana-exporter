@@ -1,6 +1,5 @@
 'use strict'
 const asana = require('asana')
-const util = require('util')
 const csvWriter = require('csv-write-stream')
 const fs = require('fs')
 
