@@ -13,10 +13,12 @@ var keyManager
       name: 'password'
     }
   ]).then(function (answers) {
-    keyManager = keyManager(answers.password)  //it would be nice if we could cache password for future runs
-
     //check that pass makes sense
     try {
+      if (answers.password === '') throw new SyntaxError("Password cannot be an empty string!")
+
+      keyManager = keyManager(answers.password)  //it would be nice if we could cache password for future runs
+
       keyManager.getKeys() // will throw error is password is incorrect
       mainLoop()
     } catch(err) {
@@ -119,7 +121,7 @@ function makeReport() {
 
     let asanaFlow = require('./asanaFlow')
     asanaFlow(answers.whoKey, mainLoop)
-    
+
   });
 }
 
