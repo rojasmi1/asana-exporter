@@ -1,4 +1,4 @@
-module.exports = function (api_key, callback) {
+module.exports = function (access_key, fromDate, callback) {
 
   const asana = require('asana')
   const csvWriter = require('csv-write-stream')
@@ -7,7 +7,7 @@ module.exports = function (api_key, callback) {
   // Using the API key for basic authentication. This is reasonable to get
   // started with, but Oauth is more secure and provides more features.
   let client = asana.Client.create()
-    .useBasicAuth(api_key)
+    .useBasicAuth(access_key)
 
 
   client.users.me()
@@ -20,11 +20,10 @@ module.exports = function (api_key, callback) {
       let workspaceId = user.workspaces[0].id
       console.log(`Workspace ID: ${workspaceId}`)
 
-      let dt = new Date()
       return client.tasks.findAll({
         assignee: userId,
         workspace: workspaceId,
-        completed_since: `${dt.getUTCFullYear()}-${dt.getUTCMonth() < 9 ? "0" + (dt.getUTCMonth()+1) : dt.getUTCMonth()+1 }-01T01:01:01.001Z`, // always get from begging of this month, account for padding
+        completed_since: fromDate,
         opt_fields: 'id,name,projects,completed,completed_at,due_at,due_on,notes'
       })
     })

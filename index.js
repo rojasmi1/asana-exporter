@@ -110,17 +110,35 @@ function changePassWrapper() {
 }
 
 function makeReport() {
+  let dt = new Date()
   inquirer.prompt([
     {
       type: 'list',
       name: 'whoKey',
       message: 'For who do you want to get the reports?',
       choices: keyManager.getKeys().map(el => {return {name: el.name, value: el.api_key}})
+    },
+    {
+      type: 'input',
+      name: 'year',
+      message: 'For what year would you like to generate the report?',
+      default: (new Date()).getUTCFullYear()  // By Default is this year
+    },
+    {
+      type: 'input',
+      name: 'month',
+      message: 'For what month would you like to generate the report?',
+      default: dt.getUTCMonth() === 0 ? 12 : dt.getUTCMonth()  // By default is last month
     }
   ]).then(function (answers) {
 
+    answers.month = answers.month < 10 ? "0" + answers.month : answers.month  //add padding if needed
+
     let asanaFlow = require('./asanaFlow')
-    asanaFlow(answers.whoKey, mainLoop)
+    asanaFlow(
+      answers.whoKey,  // Access key
+      `${answers.year}-${answers.month}-01T01:01:01.001Z`, // Date from which to get tasks
+      mainLoop) // callback
 
   });
 }
