@@ -31,7 +31,7 @@ module.exports = function (api_key, callback) {
     .then(function (response) {
       console.log('Data gotten, formatting..');
       return response.data.map( el => {  // Extract only response's data and correctly format 'project' property
-        el.project = JSON.stringify(el.projects[0].id) // As far as we know a task is only associated with one project
+        el.project_id = el.projects[0]?el.projects[0].id.toString():"" // As far as we know a task is only associated with one project
         delete el.projects
         return el
       });
