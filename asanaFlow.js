@@ -13,7 +13,7 @@ module.exports = function (api_key, callback) {
   client.users.me()
     .then(function (user) {
       let userId = user.id
-      console.log(`User ID: ${userId}`)
+      console.log(`\n--- Getting Asana info:\nUser ID: ${userId}`)
         // The user's "default" workspace is the first one in the list, though
         // any user can have multiple workspaces so you can't always assume this
         // is the one you want to work with.
@@ -29,6 +29,7 @@ module.exports = function (api_key, callback) {
       })
     })
     .then(function (response) {
+      console.log('Data gotten, formatting..');
       return response.data.map( el => {  // Extract only response's data and correctly format 'project' property
         el.project = JSON.stringify(el.projects[0].id) // As far as we know a task is only associated with one project
         delete el.projects
@@ -46,6 +47,7 @@ module.exports = function (api_key, callback) {
         writer.write(task)
       }
       writer.end()
+      console.log('Data written to "Monthly Report.csv" file in root of project :)\n');
       callback()
     })
 }
