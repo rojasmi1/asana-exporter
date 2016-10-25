@@ -17,7 +17,7 @@ var keyManager
 
     //check that pass makes sense
     try {
-      keyManager.getKeys() // will throw error is password is incorrect
+      keyManager.getKeys() // will throw error if password is incorrect
       mainLoop()
     } catch(err) {
       console.log(err + "\n");

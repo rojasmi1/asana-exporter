@@ -20,14 +20,10 @@ module.exports = function (key, keysFile = 'key_manager/keys.bfs') {
     /**
      * gets the array that is in 'keysFile'
      */
-    getKeys() { //NOTE: To get newest version, file is readed every time but this might not be needed if observer
+    getKeys() { //NOTE: To get newest version, file is read every time, but this might not be needed if an observer is implemented
       try {
-        let ks = eval(bf.decrypt(fs.readFileSync(keysFile, 'utf-8')))
-
-        // if ks == undefined then it means file exists but could not decrypt
-        if (!ks) throw new TypeError('Decrypted data is not valid JavaScript, possibly you are using the incorrect key!')
-        else return ks
-
+        let ks = JSON.parse(bf.decrypt(fs.readFileSync(keysFile, 'utf-8')))
+        return ks
       } catch (err) { // file not
         if (err instanceof TypeError) throw err
         else return [] //we will simply create a new one!
