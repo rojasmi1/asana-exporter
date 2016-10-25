@@ -24,7 +24,7 @@ module.exports = function (api_key, callback) {
       return client.tasks.findAll({
         assignee: userId,
         workspace: workspaceId,
-        completed_since: `${dt.getUTCFullYear()}-${dt.getUTCMonth()+1}-01T01:01:01.001Z`, // always get from begging of this month
+        completed_since: `${dt.getUTCFullYear()}-${dt.getUTCMonth() < 9 ? "0" + (dt.getUTCMonth()+1) : dt.getUTCMonth()+1 }-01T01:01:01.001Z`, // always get from begging of this month, account for padding
         opt_fields: 'id,name,projects,completed,completed_at,due_at,due_on,notes'
       })
     })
