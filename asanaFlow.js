@@ -25,11 +25,15 @@ module.exports = function (api_key, callback) {
         assignee: userId,
         workspace: workspaceId,
         completed_since: `${dt.getUTCFullYear()}-${dt.getUTCMonth()+1}-01T01:01:01.001Z`, // always get from begging of this month
-        opt_fields: 'id,name,completed,completed_at,due_at,due_on,notes'
+        opt_fields: 'id,name,projects,completed,completed_at,due_at,due_on,notes'
       })
     })
     .then(function (response) {
-      return response.data;
+      return response.data.map( el => {  // Extract only response's data and correctly format 'project' property
+        el.project = JSON.stringify(el.projects[0].id) // As far as we know a task is only associated with one project
+        delete el.projects
+        return el
+      });
     })
     .filter(function (task) {
       return task.completed_at !== '' && task.completed_at !== null
