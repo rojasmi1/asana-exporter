@@ -111,13 +111,15 @@ function makeReport() {
   inquirer.prompt([
     {
       type: 'list',
-      name: 'whoReport',
+      name: 'whoKey',
       message: 'For who do you want to get the reports?',
       choices: keyManager.getKeys().map(el => {return {name: el.name, value: el.api_key}})
     }
   ]).then(function (answers) {
-    //here run asanaFlow for 'whoReport' and make something with user's attention after that
-    mainLoop()
+
+    let asanaFlow = require('./asanaFlow')
+    asanaFlow(answers.whoKey, mainLoop)
+    
   });
 }
 
