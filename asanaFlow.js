@@ -36,7 +36,9 @@ module.exports = function (access_key, fromDate, callback) {
       });
     })
     .filter(function (task) {
-      return task.completed_at !== '' && task.completed_at !== null
+      return task.completed_at !== '' &&
+             task.completed_at !== null &&
+             (new Date(task.completed_at)).getUTCMonth() !== (new Date(fromDate)).getUTCMonth()
     })
     .then(function (list) {
       //Write entries to CSV File
