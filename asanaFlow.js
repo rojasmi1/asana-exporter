@@ -24,29 +24,36 @@ module.exports = function (access_key, fromDate, callback) {
         assignee: userId,
         workspace: workspaceId,
         completed_since: fromDate,
-        opt_fields: 'id,name,projects,completed,completed_at,due_at,due_on,notes'
+        opt_fields: 'id,name,projects,completed,completed_at,due_at,due_on,notes',
+        limit:100
       })
     })
     .then(function (response) {
-      console.log('Data gotten, formatting..');
-      return response.data.map( el => {  // Extract only response's data and correctly format 'project' property
-        el.project_id = el.projects[0]?el.projects[0].id.toString():"" // As far as we know a task is only associated with one project
-        delete el.projects
-        return el
-      });
+      response.fetch().then(restPages => {
+      let filteredTasks
+        console.log('Data gotten, formatting..');
+        filteredTasks = response.data.map( el => {  // Extract only response's data and correctly format 'project' property
+          el.project_id = el.projects[0]?el.projects[0].id.toString():"" // As far as we know a task is only associated with one project
+          delete el.projects
+          return el
+        })
+        filteredTasks.push(response.data)
+        filteredTasks.filter(function (task) {
+          return task.completed_at !== '' && task.completed_at !== null
+        })
+
+          //Write entries to CSV File
+          let writer = csvWriter()
+          writer.pipe(fs.createWriteStream('Monthly Report.csv'))
+          for (let task of filteredTasks) {
+            writer.write(task)
+          }
+          writer.end()
+          console.log('Data written to "Monthly Report.csv" file in root of project :)\n');
+          callback()
+
+
+      })
+
     })
-    .filter(function (task) {
-      return task.completed_at !== '' && task.completed_at !== null
-    })
-    .then(function (list) {
-      //Write entries to CSV File
-      let writer = csvWriter()
-      writer.pipe(fs.createWriteStream('Monthly Report.csv'))
-      for (let task of list) {
-        writer.write(task)
-      }
-      writer.end()
-      console.log('Data written to "Monthly Report.csv" file in root of project :)\n');
-      callback()
-    })
-}
+    }
