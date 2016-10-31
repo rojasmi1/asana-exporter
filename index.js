@@ -36,9 +36,9 @@ function mainLoop() {
       name: 'what',
       message: 'What would you like to do? (ctrl+c to exit)',
       choices: [
-        {name: '1. See info stored in keyFIle', value: 1},
-        {name: '2. Add person to key file', value: 2},
-        {name: '3. Remove someone from key file', value: 3},
+        {name: '1. See info stored in keyFile', value: 1},
+        {name: '2. Add person to keyFile', value: 2},
+        {name: '3. Remove someone from keyFile', value: 3},
         {name: '4. Change password of keyFile', value: 4},
         {name: '5. Make report of someone', value: 5},
       ]
@@ -113,10 +113,10 @@ function makeReport() {
   let dt = new Date()
   inquirer.prompt([
     {
-      type: 'list',
-      name: 'whoKey',
+      type: 'checkbox',
+      name: 'who',
       message: 'For who do you want to get the reports?',
-      choices: keyManager.getKeys().map(el => {return {name: el.name, value: el.api_key}})
+      choices: keyManager.getKeys().map(el => {return {name: el.name, value: el.api_key, checked: true}})
     },
     {
       type: 'input',
@@ -133,12 +133,25 @@ function makeReport() {
   ]).then(function (answers) {
 
     answers.month = answers.month < 10 ? "0" + answers.month : answers.month  //add padding if needed
-    
+
     let asanaFlow = require('./asanaFlow')
-    asanaFlow(
-      answers.whoKey,  // Access key
-      `${answers.year}-${answers.month}-01T01:01:01.001Z`, // Date from which to get tasks
-      mainLoop) // callback
+
+    try {
+      (require("fs")).unlinkSync("Monthly Report.csv")
+    } catch(err){}
+
+    let promises = []
+
+    for (let us of answers.who) {
+      promises.push(asanaFlow(
+        us,  // Access key
+        `${answers.year}-${answers.month}-01T01:01:01.001Z`) // Date from which to get tasks
+      )
+    }
+
+    Promise.all(promises).then(()=> {
+      mainLoop()
+    })
 
   });
 }
