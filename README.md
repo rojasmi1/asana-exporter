@@ -3,7 +3,7 @@ This is meant to help improve the process of generating tasks reports for the So
 
 ## ToDo
 - ~~Make export for all registered members in key_manager~~
-- Nicer logging of what is happening when asynchronously doing asanaFlow
+- ~~Nicer logging of what is happening when asynchronously doing asanaFlow~~
 - Implement a temporary or permanent cache for keyFile's password
 - Handle what should happen with 'project-less' tasks (mainly private tasks)
 - Add the following columns to the exported CSV file:

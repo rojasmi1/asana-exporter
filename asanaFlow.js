@@ -18,12 +18,12 @@ module.exports = function (access_key, fromDate) {
     client.users.me()
       .then(function (user) {
         let userId = user.id
-        console.log(`\n--- Getting Asana info:\nUser ID: ${userId}`)
+        console.log(`\n--- Getting Asana info: User : ${user.name}.`)
           // The user's "default" workspace is the first one in the list, though
           // any user can have multiple workspaces so you can't always assume this
           // is the one you want to work with.
         let workspaceId = user.workspaces[0].id
-        console.log(`Workspace ID: ${workspaceId}`)
+        console.log(`Workspace: ${user.workspaces[0].name}.`)
 
         return client.tasks.findAll({
           assignee: userId,
@@ -40,13 +40,14 @@ module.exports = function (access_key, fromDate) {
 
           // restPages Includes the initial 100 value we got originally
           .then(restPages => {
+            console.log(`Fetching data for ${restPages[0].assignee.name}`)
             res(restPages) // once we have all data ready we resolve current promise
           })
 
       })
 
   }).then(function (rawtasks) {
-    console.log('Data gotten, formatting..')
+    console.log('Formatting raw data.')
 
     let ftasks = rawtasks.map(el => { // map the project_id attribute of all tasks and save in 'formatted tasks'
       el.project = el.projects[0] ? el.projects[0].name.toString() : "" // As far as we know a task is only associated with one project
@@ -68,6 +69,7 @@ module.exports = function (access_key, fromDate) {
     // TODO: Probably there is a much more elegant way of doing this
     let writer
     try {
+      console.log(`Writing data to 'Monthly Report.csv' file.`)
       fs.accessSync('Monthly Report.csv', fs.constants.R_OK | fs.constants.W_OK) // if file doesn't exists then throw error
       writer = csvWriter({sendHeaders: false}) // file exists, don't write headers to file again
 
@@ -85,7 +87,7 @@ module.exports = function (access_key, fromDate) {
     }
 
     writer.end()
-    console.log(`${ftasks.length} tasks written to "Monthly Report.csv" file in root of project :)\n`);
+    console.log(`${ftasks.length} tasks written to "Monthly Report.csv" file.`)
 
   })
 

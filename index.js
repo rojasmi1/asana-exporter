@@ -22,12 +22,12 @@ var keyManager
       keyManager.getKeys() // will throw error is password is incorrect
       mainLoop()
     } catch(err) {
-      console.log(err + "\n");
+      console.log(err + "\n")
       init()
     }
 
-  });
-}());
+  })
+}())
 
 function mainLoop() {
   inquirer.prompt([
@@ -46,35 +46,35 @@ function mainLoop() {
   ]).then(function (answers) {
     switch(answers.what){
     case 1:
-      console.log('\nKeys File Info:\n-------------------------------------------');
+      console.log('\nKeys File Info:\n-------------------------------------------')
       for (let prsn of keyManager.getKeys()){
         console.log(`${prsn.name}\t${prsn.api_key}`)
-        console.log('-------------------------------------------');
+        console.log('-------------------------------------------')
       }
-      console.log('\n');
+      console.log('\n')
       mainLoop()
-      break;
+      break
 
     case 2:
       addPersonWrapper()
-      break;
+      break
 
     case 3:
       removeSomeoneWrapper()
-      break;
+      break
 
     case 4:
       changePassWrapper()
-      break;
+      break
 
     case 5:
       makeReport()
-      break;
+      break
 
     //default option is not needed since user cannot give us invalid input
     }
 
-  });
+  })
 }
 
 function addPersonWrapper() {
@@ -93,7 +93,7 @@ function addPersonWrapper() {
   ]).then(function (answers) {
     keyManager.addKeys(answers.name, answers.api_key)
     mainLoop()
-  });
+  })
 }
 
 function changePassWrapper() {
@@ -106,7 +106,7 @@ function changePassWrapper() {
   ]).then(function (answers) {
     keyManager.changePassowrd(answers.newPass)
     mainLoop()
-  });
+  })
 }
 
 function makeReport() {
@@ -138,7 +138,9 @@ function makeReport() {
 
     try {
       (require("fs")).unlinkSync("Monthly Report.csv")
-    } catch(err){}
+    } catch(err){
+      console.log(err)
+    }
 
     let promises = []
 
@@ -150,10 +152,11 @@ function makeReport() {
     }
 
     Promise.all(promises).then(()=> {
+      console.log(`Please find the report file in the root folder of the Asana Exporter project.`)
       mainLoop()
     })
 
-  });
+  })
 }
 
 function removeSomeoneWrapper(){
@@ -167,5 +170,5 @@ function removeSomeoneWrapper(){
   ]).then(function (answers) {
     keyManager.removeSomeone(answers.name)
     mainLoop()
-  });
+  })
 }
