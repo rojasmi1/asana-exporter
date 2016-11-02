@@ -1,5 +1,6 @@
 module.exports = function (access_key, fromDate) {
 
+  const tasksUtils = require('./tasksUtils')
   const asana = require('asana')
   const csvWriter = require('csv-write-stream')
   const fs = require('fs')
@@ -47,23 +48,8 @@ module.exports = function (access_key, fromDate) {
       })
 
   }).then(function (rawtasks) {
-    console.log('Formatting raw data.')
 
-    let ftasks = rawtasks.map(el => { // map the project_id attribute of all tasks and save in 'formatted tasks'
-      el.project = el.projects[0] ? el.projects[0].name.toString() : "" // As far as we know a task is only associated with one project
-      delete el.projects
-
-      el.assignee = el.assignee.name // we are only interested in the Assignee's name. We don't check if this exists since one of our filters for getting the task is the assignee
-      return el
-    })
-
-    // Filter only tasks that have a "completed at" value and that the "completed_at" month is the same
-    // as the month we are requesting (There seems to be no way to filter these out directly in the
-    // request to the server)
-    ftasks = ftasks.filter(function (task) {
-      return task.completed_at !== '' &&
-        task.completed_at !== null && (new Date(task.completed_at)).getUTCMonth() === (new Date(fromDate)).getUTCMonth()
-    })
+    let formatedTasks = tasksUtils.formatTasks(rawtasks,fromDate)
 
     //Write entries to CSV File
     // TODO: Probably there is a much more elegant way of doing this
@@ -82,12 +68,12 @@ module.exports = function (access_key, fromDate) {
       flags: 'a'
     }))
 
-    for (let task of ftasks) {
+    for (let task of formatedTasks) {
       writer.write(task)
     }
 
     writer.end()
-    console.log(`${ftasks.length} tasks written to "Monthly Report.csv" file.`)
+    console.log(`${formatedTasks.length} tasks written to "Monthly Report.csv" file.`)
 
   })
 
