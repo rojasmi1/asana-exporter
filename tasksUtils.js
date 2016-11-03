@@ -1,15 +1,6 @@
 'user strict'
 
-const TASKS_TYPES = [
-{name:"Build-Email",keywords:['Build Email','Create Email']},
-{name:"Build-Landing-Pages",keywords:['Build Landing Page','Create Landing Page']},
-{name:"Build-Program-Invitation",keywords:['Build Program','Create Program','Clone Marketo Event Program']},
-{name:"Creat-SC-Codes",keywords:['Create SC Codes']},
-{name:"Marketing",keywords:['Lead Load','Lead']},
-{name:"QA-Email",keywords:['QA Email','QA Follow Up Emails']},
-{name:"QA-Landing-Pages",keywords:['QA Landing Page']},
-{name:"QA-Program-Invitation",keywords:['QA Program']}
-]
+const {TASKS_TYPES} = require('./conf/consts')
 
 const getTaskType = (taskName) =>{
   for (let task_type of TASKS_TYPES) {
