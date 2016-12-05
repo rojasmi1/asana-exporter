@@ -1,6 +1,3 @@
-
-'use strict'
-
 var fs = require('fs')
 var Blowfish = require('xs-blowfish')
 /**

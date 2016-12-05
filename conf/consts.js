@@ -1,5 +1,3 @@
-'use strict'
-
 module.exports.TASKS_TYPES = [
 {name:"Build-Email",keywords:['Build Email','Create Email','3rd party email','Build Invite','Update email']},
 {name:"Build-Landing-Pages",keywords:['Build Landing Page','Create Landing Page']},

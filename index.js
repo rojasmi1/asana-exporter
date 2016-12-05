@@ -1,5 +1,3 @@
-'use strict'
-
 var inquirer
 var keyManager
 

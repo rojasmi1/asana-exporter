@@ -13,6 +13,8 @@
     "breeze": "^1.2.2",
     "csv-write-stream": "^2.0.0",
     "inquirer": "^1.2.2",
+    "nexe": "^1.1.2",
+    "spawn-sync": "^1.0.15",
     "xs-blowfish": "^2.0.0"
   },
   "devDependencies": {
