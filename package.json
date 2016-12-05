@@ -4,7 +4,7 @@
   "description": "This is meant to help improve the process of generating tasks reports for the SolarWinds project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile":"node nexe-compilator.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "breeze": "^1.2.2",
     "csv-write-stream": "^2.0.0",
     "inquirer": "^1.2.2",
+    "ncp": "^2.0.0",
     "nexe": "^1.1.2",
     "spawn-sync": "^1.0.15",
     "xs-blowfish": "^2.0.0"
