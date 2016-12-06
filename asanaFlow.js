@@ -1,6 +1,7 @@
 module.exports = function (access_key, fromDate) {
 
   const tasksUtils = require('./tasksUtils')
+  const task_model = require('./db_model/task_model')
   const asana = require('asana')
   const csvWriter = require('csv-write-stream')
   const fs = require('fs')
@@ -69,7 +70,11 @@ module.exports = function (access_key, fromDate) {
     }))
 
     for (let task of formatedTasks) {
-      writer.write(task)
+      task_model.getTaskDuration(task.id).then(function(duration){
+        console.log(duration);
+        task.duration = duration
+        writer.write(task)
+      })
     }
 
     writer.end()

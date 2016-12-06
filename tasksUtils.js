@@ -1,6 +1,5 @@
-'user strict'
-
 const {TASKS_TYPES} = require('./conf/consts')
+
 
 const getTaskType = (taskName) =>{
   for (let task_type of TASKS_TYPES) {
@@ -28,8 +27,13 @@ module.exports.formatTasks = (rawtasks,fromDate) => {
   // Filter only tasks that have a "completed at" value and that the "completed_at" month is the same
   // as the month we are requesting (There seems to be no way to filter these out directly in the
   // request to the server)
-  return ftasks.filter(function (task) {
-    return task.completed_at !== '' &&
-      task.completed_at !== null && (new Date(task.completed_at)).getUTCMonth() === (new Date(fromDate)).getUTCMonth()
+  let completedTasks = []
+
+  ftasks.forEach(function(task){
+    if(task.completed_at !== '' && task.completed_at !== null && (new Date(task.completed_at)).getUTCMonth() === (new Date(fromDate)).getUTCMonth()){
+      completedTasks.push(task)
+    }
   })
+
+  return completedTasks
 }
