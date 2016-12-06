@@ -145,11 +145,11 @@ function makeReport() {
     for (let us of answers.who) {
       promises.push(asanaFlow(
         us,  // Access key
-        `${answers.year}-${answers.month}-01T01:01:01.001Z`) // Date from which to get tasks
+        `${answers.year}-${answers.month}-01T01:01:01.001Z`,mainLoop) // Date from which to get tasks
       )
     }
 
-    Promise.all(promises).then(()=> {
+    Promise.all(promises).then(()=>{
       console.log(`Please find the report file in the root folder of the Asana Exporter project.`)
       mainLoop()
     })

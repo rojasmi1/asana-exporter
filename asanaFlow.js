@@ -1,4 +1,4 @@
-module.exports = function (access_key, fromDate) {
+module.exports = function (access_key, fromDate,callback) {
 
   const tasksUtils = require('./tasksUtils')
   const task_model = require('./db_model/task_model')
@@ -14,10 +14,12 @@ module.exports = function (access_key, fromDate) {
 
   // Get all users
   // Return promise to calling function, next step will be defined there
-  return new Promise((res) => {
+  return new Promise((resolve)=>{
+
+    new Promise((res) => {
 
     // Get first batch of users
-    client.users.me()
+      client.users.me()
       .then(function (user) {
         let userId = user.id
         console.log(`\n--- Getting Asana info: User : ${user.name}.`)
@@ -48,38 +50,39 @@ module.exports = function (access_key, fromDate) {
 
       })
 
-  }).then(function (rawtasks) {
+    }).then(function (rawtasks) {
 
-    let formatedTasks = tasksUtils.formatTasks(rawtasks,fromDate)
+      let formatedTasks = tasksUtils.formatTasks(rawtasks,fromDate)
 
     //Write entries to CSV File
     // TODO: Probably there is a much more elegant way of doing this
-    let writer
-    try {
-      console.log(`Writing data to 'Monthly Report.csv' file.`)
-      fs.accessSync('Monthly Report.csv', fs.constants.R_OK | fs.constants.W_OK) // if file doesn't exists then throw error
-      writer = csvWriter({sendHeaders: false}) // file exists, don't write headers to file again
+      let writer
+      try {
+        console.log(`Writing data to 'Monthly Report.csv' file.`)
+        fs.accessSync('Monthly Report.csv', fs.constants.R_OK | fs.constants.W_OK) // if file doesn't exists then throw error
+        writer = csvWriter({sendHeaders: false}) // file exists, don't write headers to file again
 
-    } catch (err) {
-      writer = csvWriter({sendHeaders: true}) // file doesn't exist, write header files
-    }
+      } catch (err) {
+        writer = csvWriter({sendHeaders: true}) // file doesn't exist, write header files
+      }
 
-    writer.pipe(fs.createWriteStream('Monthly Report.csv', {
+      writer.pipe(fs.createWriteStream('Monthly Report.csv', {
       // Append to file if it exists or create new one in the opposite case (in case we are doing a report for various people)
-      flags: 'a'
-    }))
-
-    for (let task of formatedTasks) {
-      task_model.getTaskDuration(task.id).then(function(duration){
-        console.log(duration);
-        task.duration = duration
-        writer.write(task)
-      })
-    }
-
-    writer.end()
-    console.log(`${formatedTasks.length} tasks written to "Monthly Report.csv" file.`)
-
+        flags: 'a'
+      }))
+      let counter = 0
+      for (let task of formatedTasks) {
+        task_model.getTaskDuration(task.id).then(function(duration){
+          task.duration = duration
+          writer.write(task)
+          if(++counter === formatedTasks.length){
+            writer.end()
+            console.log(`${formatedTasks.length} tasks written to "Monthly Report.csv" file.`)
+            resolve(counter)
+          }
+        })
+      }
+    })
   })
 
 }
