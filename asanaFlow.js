@@ -72,7 +72,7 @@ module.exports = function (access_key, fromDate,callback) {
       }))
       let counter = 0
       for (let task of formatedTasks) {
-        task_model.getTaskDuration(task.id).then(function(duration){
+        task_model.getTaskDuration(task.id,access_key).then(function(duration){
           task.duration = duration
           writer.write(task)
           if(++counter === formatedTasks.length){
