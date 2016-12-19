@@ -14,8 +14,6 @@ module.exports.formatTasks = (rawtasks,fromDate) => {
   console.log('Formatting raw data.')
 
   let ftasks = rawtasks.map(el => { // map the project_id attribute of all tasks and save in 'formatted tasks'
-    el.project = el.projects[0] ? el.projects[0].name.toString() : "" // As far as we know a task is only associated with one project
-    delete el.projects
 
     //Set task task type
     el.task_type = getTaskType(el.name)

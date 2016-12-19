@@ -33,7 +33,7 @@ module.exports = function (access_key, fromDate,callback) {
           assignee: userId,
           workspace: workspaceId,
           completed_since: fromDate, // specified in the menu, recieved as a parameter on module initialization
-          opt_fields: 'id,name,assignee.name,projects.name,completed_at,notes',
+          opt_fields: 'id,name,assignee.name,completed_at',
           limit: 100
         })
       })
