@@ -4,7 +4,7 @@ const {TASKS_TYPES} = require('./conf/consts')
 const getTaskType = (taskName) =>{
   for (let task_type of TASKS_TYPES) {
     for (let keyword of task_type.keywords) {
-      if(taskName..toUpperCase().includes(keyword.toUpperCase()))
+      if(taskName.toUpperCase().includes(keyword.toUpperCase()))
         return task_type.name
     }
   }
